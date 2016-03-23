@@ -1,0 +1,40 @@
+//
+  this template is used wuithin the applicatio0n state "todo"
+  defines in ./index.js
+  
+.container
+  .jumbotron
+    h1 Todo List
+  .row
+    .col-md-4
+      .list-group
+        //
+          internally angualr has a priority list for directives. the actual order within the tag
+          doesnt matter therefore. 
+            .list-group-item(ui-sref=".detail({todoId: todo.id})" ng-repeat="todo in TodoCtrl.allTodos")
+          is the same as
+            .list-group-item(ng-repeat="todo in TodoCtrl.allTodos" ui-sref=".detail({todoId: todo.id})")
+          since the priority of ng-repeat is higher than ui-sref the directive ngRepeat gets linked first
+          and creates a scope for every item of TodoCtrl.allTodos and linkes it to the <div class="list-group-item"></div>
+          tag. It exposes the variable todo to each scope containing the current list item. uiSref gets linked
+          after that and therefore can access the variable todo within the scope and use it to create the link
+          (!!) the ui-sref=".detail({todoId: todo.id})" referrs to the detail state relative to the current state
+          suince we are in state todo it actually means ui-sref="todo.detail({todoId: todo.id})"
+          the dot (.) defines a child state. using ui-sref=".({stateParams})" is the current state.
+          the power (^) referrs to the parent state
+        .list-group-item(ng-repeat="todo in TodoCtrl.allTodos" ui-sref=".detail({todoId: todo.id})")
+          h3 
+            i.fa.fa-check-square-o(ng-show="todo.done")
+            i.fa.fa-square-o(ng-hide="todo.done")
+            |  {{todo.title}}
+          p.text-info ID: {{todo.id}}
+    //
+      the uiView directive creates a placeholder for a template that can (!!!) be defined within a child state or
+      the current state (rare use case). Since the placeholder doesn't have to be defined the <h2>Please select a Todo on the left</h2>
+      is the default content. We replace it as soon as we want to show the detailed view of a todo. Therefore the
+      state todo.detail, defined in ./detail/index.js replaces the default template with another template.
+      (!!) uiRouter is really flexible when it comes to defining templates. At the same time it requires the dveloper
+      to be precise about the "address" of the template. Since this template is named "content" and defined within the
+      template for the state "todo" the name of this placeholder is "content@todo". 
+    .col-md-8(ui-view="content")
+      h2 Please select a Todo on the left

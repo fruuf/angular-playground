@@ -1,0 +1,14 @@
+//
+  this template is used by express for server errors
+  the last middleware of the stack deals with error handling
+  and only gets executed when the previous middlewares didn't finish
+  the request.
+doctype html
+head
+  title AngularJS Playground
+  script(src="/client/app.js")
+  link(rel="stylesheet" href="/client/app.css")
+body
+  h1= message
+  h2= error.status
+  pre #{error.stack}

@@ -1,0 +1,68 @@
+{
+  "name": "angular-playground",
+  "version": "0.0.1",
+  "scripts": {
+    "//":"allows to start the application with 'npm start'",
+    "start": "node ./bin/www"
+  },
+  "dependencies": {
+    "//":" yes, we've heard about it",
+    "angular": "^1.5.1",
+    "//": "state driven router for angular, way more flexible than angulars native implementation. Angular2 uses a similar router and most angular1 projects use this one.",
+    "angular-ui-router": "^0.2.18",
+    "//": "leagacy support (ec5). babel allows you to configure what to transform, this one is the most general setup.",                                
+    "babel-preset-es2015": "^6.6.0",
+    "//": "the actual transformer for ec6 -> ec5",                                 
+    "babelify": "^7.2.0",
+    "//": "express middleware, parses the body of the request. From a php perspective this seems ridicoulus because php does it out of the box. In NodeJS you create the entire server, in PHP you only create scripts",
+    "body-parser": "~1.13.2",
+    "//": "resolves import/export or require calls",               
+    "browserify": "^13.0.0",
+    "//": "middleware for expressJS",
+    "browserify-middleware": "^7.0.0",
+    "//": "similar to body-parser",
+    "cookie-parser": "~1.3.5", 
+    "//": "yes, it has debugging",
+    "debug": "~2.2.0", 
+    "//":"high level api for creating a server with nodeJS",
+    "express": "~4.13.1",
+    "//": "task runner (cli), we use it only for creating production ready files",
+    "gulp": "^3.9.1",
+    "//": "bundle files, just to explain the duplicates. browserify is the actual module that does the bundling, gulp-browserify is a wrapper of browserify for gulp, browserify-middleware is to hook up browserify with express",
+    "gulp-browserify": "^0.5.1", 
+    "//": " minify css",
+    "gulp-clean-css": "^2.0.3",
+    "//": "compile less to css. Less allows for variables, seperate files and better nesting",
+    "gulp-less": "^3.0.5", 
+    "//": " renames files",
+    "gulp-rename": "^1.2.2",
+    "//": "minify js, check how we declared our dependencies within angular",
+    "gulp-uglify": "^1.5.3",
+    "//": "template engine, inspired by yaml",
+    "jade": "~1.11.0",
+    "//": "transformer for jade templates",
+    "jadeify": "^4.6.0",
+    "//":"compiles less files within our nodeJS server",
+    "less-middleware": "^2.1.0", 
+    "//": "handy library for dealing with arrays and objects",
+    "lodash": "^4.6.1", 
+    "//": "I think its logging, never had to interact with it",
+    "morgan": "~1.6.1"
+  },
+  "//":"browserify resolves all import/export or require calls within a script file  and bundles them on the server side. import/export is a recent EC6 feature and is prevered over require() because it's official javascript standard with native support in modern browsers. ",
+  "browserify": {
+    "//":"the debug key appends a source map to the script file that translates line numbers from to bundled file back to their original file / line for debugging.",
+    "debug": true,
+    "//":"A transform is a middleware for browserify. Its a common concept within the nodeJS  environment when dealing with sequencial operations.a few ec6 features are commented within the source code. The configuration of what to transform is within the .babelrc file. Again, nothing to worry about since its only for legacy support.",
+    "//":"babelify transforms ec6 javascript to ec5, so it can be executed in almost every browser.",
+    "//":"jadeify transforms jade templates into html. if a jade template gets imported the variable becomes a function that takes a local object (template variables within jade like username etc.) that returns a string when executed. Since we're using angular as a template engine, this feature isn't really needed, but I still think the jade syntax is so much better than html and therefore worth it.",
+    "transform": [
+      "babelify",
+      "jadeify"
+    ],
+    "extensions": [
+      ".js",
+      ".jade"
+    ]
+  }
+}

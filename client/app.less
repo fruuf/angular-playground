@@ -1,0 +1,14 @@
+// The less syntax is a superset of css, any valid css is valid less
+// If the import statement is requiring a .less file, the file gets included
+// and can access all variables within the global scope.
+// requiring a css file doesnt include the file but lets the browser deal with it
+// with a http request. there is a parameter to hard link css files as well, check the docs.
+@import "https://maxcdn.bootstrapcdn.com/font-awesome/4.5.0/css/font-awesome.min.css";
+
+// I like to include the less source files of bootstrap directly and compile them by myself
+// Since less only creates one global scope its easy to overwrite the bootstrap variables
+// after including the bootstrap less file and change the look that way.
+@import "./vendor/bootstrap/bootstrap.less";
+// Example
+// @brand-primary: #ccc;
+// see ./vendor/bootstrap/variables.less

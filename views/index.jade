@@ -1,0 +1,17 @@
+doctype html
+head
+  title AngularJS Playground
+  script(src="/client/app.js")
+  link(rel="stylesheet" href="/client/app.css")
+//
+  the ui-view attribute is assigned to ui-router and defines a place holder within the state related to the template
+  the full name of this placeholder is "content@". We are in the root template, the related state is empty.
+  
+body(ng-app="app")
+  .loading.text-center(ng-show="loading")
+    .container
+      .jumbotron
+        h1
+          i.fa.fa-spinner.fa-spin
+          |  Loading
+  .content(ui-view="content")
